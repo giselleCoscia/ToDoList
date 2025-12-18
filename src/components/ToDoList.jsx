@@ -10,6 +10,7 @@ const ToDoList = () => {
       {
         id: Date.now(),
         name: task,
+        isCompleted: false,
       },
     ]);
   };
@@ -17,24 +18,37 @@ const ToDoList = () => {
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
-  const editTask = (id, newTask) => {
-    console.log({ id, newTask });
-
+  const editTask = (id, taskNew) => {
     setTasks(
       tasks.map((task) => {
         if (task.id == id) {
-          return { id, name: newTask };
+          return { id, name: taskNew, isCompleted };
         }
         return task;
       })
     );
   };
-  console.log(tasks);
+
+  const chageStatusTask = (id) => {
+    setTasks(
+      tasks.map((task) => {
+        return {
+          ...task,
+          isCompleted: task.id == id ? !task.isCompleted : task.isCompleted,
+        };
+      })
+    );
+  };
 
   return (
     <>
       <Form addTask={addTask} />
-      <List tasks={tasks} deleteTask={deleteTask} editTask={editTask} addTask={addTask} />
+      <List
+        tasks={tasks}
+        deleteTask={deleteTask}
+        editTask={editTask}
+        chageStatusTask={chageStatusTask}
+      />
     </>
   );
 };

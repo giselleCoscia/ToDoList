@@ -1,24 +1,18 @@
 import { useState } from "react";
 
-const List = ({ tasks, deleteTask,editTask}) => {
+const List = ({ tasks, deleteTask,editTask ,chageStatusTask}) => {
   const [taskId, setTaskId] = useState();
   const [taskNew,setTaskNew]=useState();
-  // guardar el nuevo valor de update -> usar updateTask
-  // -> useState para eso
-  // -> onClick que guarde
-  // -> borrar id para que se valla el input
-
   return (
-    <>
+    <div>
       {tasks.map((task) => {
         return (
           <div>
-            {" "}
             {taskId == task.id ? (
               <input type="text" onChange={(e)=>setTaskNew(e.target.value) } defaultValue={task.name}></input>
             ) : (
-              task.name
-            )}{" "}
+              <span style={{textDecoration: task.isCompleted?"line-through":"none"}}>{task.name}</span>
+            )}
             <button onClick={() => deleteTask(task.id)}> Delete</button>
             {taskId == task.id ? (
               <button onClick={() =>{ editTask(taskId, taskNew)
@@ -26,10 +20,11 @@ const List = ({ tasks, deleteTask,editTask}) => {
             ) : (
               <button onClick={() => setTaskId(task.id)}> Edit</button>
             )}
+            <input type="checkbox" onClick={()=>chageStatusTask(task.id)} />
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
