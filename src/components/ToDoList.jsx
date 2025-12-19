@@ -14,13 +14,27 @@ const ToDoList = () => {
     ]);
   };
 
-  const deleteTask = (asedwrqweeda) => {
-    setTasks(tasks.filter((task) => task.id !== asedwrqweeda));
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
   };
+  const editTask = (id, newTask) => {
+    console.log({ id, newTask });
+
+    setTasks(
+      tasks.map((task) => {
+        if (task.id == id) {
+          return { id, name: newTask };
+        }
+        return task;
+      })
+    );
+  };
+  console.log(tasks);
+
   return (
     <>
       <Form addTask={addTask} />
-      <List tasks={tasks}  deleteTask={deleteTask}/>
+      <List tasks={tasks} deleteTask={deleteTask} editTask={editTask} addTask={addTask} />
     </>
   );
 };
