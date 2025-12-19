@@ -1,9 +1,20 @@
 import Form from "./Form";
 import List from "./List";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
+
+  useEffect(()=>{
+    const localTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(localTasks)
+  },[])
+
+  useEffect(()=>{
+    if(tasks.length <= 0) return;
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+  },[tasks])
+
   const addTask = (task) => {
     setTasks([
       ...tasks,

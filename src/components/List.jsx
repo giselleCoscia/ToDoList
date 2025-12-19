@@ -7,7 +7,7 @@ const List = ({ tasks, deleteTask,editTask ,chageStatusTask}) => {
     <div>
       {tasks.map((task) => {
         return (
-          <div>
+          <div key={`item-${task.id}`}>
             {taskId == task.id ? (
               <input type="text" onChange={(e)=>setTaskNew(e.target.value) } defaultValue={task.name}></input>
             ) : (
